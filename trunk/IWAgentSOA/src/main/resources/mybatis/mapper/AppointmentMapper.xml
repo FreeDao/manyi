@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manyi.iw.soa.mapper.AppointmentMapper" >
+  <resultMap id="BaseResultMap" type="com.manyi.iw.soa.entity.Appointment" >
+
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="agent_id" property="agentId" jdbcType="BIGINT" />
+    <result column="appointment_time" property="appointmentTime" jdbcType="TIMESTAMP" />
+    <result column="meet_address" property="meetAddress" jdbcType="VARCHAR" />
+    <result column="appointment_state" property="appointmentState" jdbcType="TINYINT" />
+    <result column="ability" property="ability" jdbcType="TINYINT" />
+    <result column="appearance" property="appearance" jdbcType="TINYINT" />
+    <result column="attitude" property="attitude" jdbcType="TINYINT" />
+    <result column="appraise" property="appraise" jdbcType="VARCHAR" />
+    <result column="change_date_memo" property="changeDateMemo" jdbcType="VARCHAR" />
+    <result column="cancel_memo" property="cancelMemo" jdbcType="VARCHAR" />
+    <result column="cancel_reason" property="cancelReason" jdbcType="TINYINT" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="seehouse_number" property="seehouseNumber" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="agent_checkin_time" property="agentCheckinTime" jdbcType="TIMESTAMP" />
+    <result column="user_checkin_time" property="userCheckinTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.manyi.iw.soa.appointment.model.AppointmentSearchResponse" id="AppointmentSearchResultMap">
+  	<id column="id" property="id" jdbcType="BIGINT" />
+  	<result column="appointment_time" property="appointmentTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="seehouse_number" property="seehouseNumber" jdbcType="VARCHAR" />
+    <result column="appointment_state" property="appointmentState" jdbcType="TINYINT" />
+    <result column="meet_address" property="meetAddress" jdbcType="VARCHAR" />
+    <result column="see_house_count" property="seeHouseCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+
+    id, user_id, agent_id, appointment_time, meet_address, appointment_state, ability, agent_checkin_time,user_checkin_time,
+    appearance, attitude, appraise, change_date_memo, cancel_memo, cancel_reason, memo, 
+    update_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+
+    select 
+    <include refid="Base_Column_List" />
+    from iw_appointment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+    delete from iw_appointment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id"  parameterType="com.manyi.iw.soa.entity.Appointment" >
+    
+    insert into iw_appointment (id, user_id, agent_id,seehouse_number, 
+      appointment_time, meet_address, appointment_state, 
+      ability, appearance, attitude, 
+      appraise, change_date_memo, cancel_memo, 
+      cancel_reason, memo, update_time, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{agentId,jdbcType=BIGINT}, #{seehouseNumber,jdbcType=VARCHAR},
+      #{appointmentTime,jdbcType=TIMESTAMP}, #{meetAddress,jdbcType=VARCHAR}, #{appointmentState,jdbcType=TINYINT}, 
+      #{ability,jdbcType=TINYINT}, #{appearance,jdbcType=TINYINT}, #{attitude,jdbcType=TINYINT}, 
+      #{appraise,jdbcType=VARCHAR}, #{changeDateMemo,jdbcType=VARCHAR}, #{cancelMemo,jdbcType=VARCHAR}, 
+      #{cancelReason,jdbcType=TINYINT}, #{memo,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.manyi.iw.soa.entity.Appointment" >
+
+    insert into iw_appointment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="appointmentTime != null" >
+        appointment_time,
+      </if>
+      <if test="meetAddress != null" >
+        meet_address,
+      </if>
+      <if test="appointmentState != null" >
+        appointment_state,
+      </if>
+      <if test="ability != null" >
+        ability,
+      </if>
+      <if test="appearance != null" >
+        appearance,
+      </if>
+      <if test="attitude != null" >
+        attitude,
+      </if>
+      <if test="appraise != null" >
+        appraise,
+      </if>
+      <if test="changeDateMemo != null" >
+        change_date_memo,
+      </if>
+      <if test="cancelMemo != null" >
+        cancel_memo,
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=BIGINT},
+      </if>
+      <if test="appointmentTime != null" >
+        #{appointmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meetAddress != null" >
+        #{meetAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentState != null" >
+        #{appointmentState,jdbcType=TINYINT},
+      </if>
+      <if test="ability != null" >
+        #{ability,jdbcType=TINYINT},
+      </if>
+      <if test="appearance != null" >
+        #{appearance,jdbcType=TINYINT},
+      </if>
+      <if test="attitude != null" >
+        #{attitude,jdbcType=TINYINT},
+      </if>
+      <if test="appraise != null" >
+        #{appraise,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDateMemo != null" >
+        #{changeDateMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelMemo != null" >
+        #{cancelMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelReason != null" >
+        #{cancelReason,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manyi.iw.soa.entity.Appointment" >
+
+    update iw_appointment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=BIGINT},
+      </if>
+      <if test="appointmentTime != null" >
+        appointment_time = #{appointmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meetAddress != null" >
+        meet_address = #{meetAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentState != null" >
+        appointment_state = #{appointmentState,jdbcType=TINYINT},
+      </if>
+      <if test="ability != null" >
+        ability = #{ability,jdbcType=TINYINT},
+      </if>
+      <if test="appearance != null" >
+        appearance = #{appearance,jdbcType=TINYINT},
+      </if>
+      <if test="attitude != null" >
+        attitude = #{attitude,jdbcType=TINYINT},
+      </if>
+      <if test="appraise != null" >
+        appraise = #{appraise,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDateMemo != null" >
+        change_date_memo = #{changeDateMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelMemo != null" >
+        cancel_memo = #{cancelMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason = #{cancelReason,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manyi.iw.soa.entity.Appointment" >
+
+    update iw_appointment
+    set user_id = #{userId,jdbcType=BIGINT},
+      agent_id = #{agentId,jdbcType=BIGINT},
+      appointment_time = #{appointmentTime,jdbcType=TIMESTAMP},
+      meet_address = #{meetAddress,jdbcType=VARCHAR},
+      appointment_state = #{appointmentState,jdbcType=TINYINT},
+      ability = #{ability,jdbcType=TINYINT},
+      appearance = #{appearance,jdbcType=TINYINT},
+      attitude = #{attitude,jdbcType=TINYINT},
+      appraise = #{appraise,jdbcType=VARCHAR},
+      change_date_memo = #{changeDateMemo,jdbcType=VARCHAR},
+      cancel_memo = #{cancelMemo,jdbcType=VARCHAR},
+      cancel_reason = #{cancelReason,jdbcType=TINYINT},
+      memo = #{memo,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 获取某个房源所有将来的约看 -->
+  <select id="getWillAppointment" parameterType="java.lang.Long" resultType="com.manyi.iw.soa.seekhouse.model.WillAppointMentVo" >
+		SELECT
+		    b.id,
+			b.appointment_time as appointmentTime,
+			b.appointment_state as status,
+			c.uname as agentName
+		FROM
+			iw_seekhouse a,
+			iw_appointment b,
+			iw_agent c
+		WHERE
+			a.agent_id = c.id
+		AND a.appointment_id = b.id
+		AND a.house_id = #{id}
+		AND b.appointment_state = &lt;3
+		AND b.appointment_time> now()
+		ORDER BY
+			b.appointment_time;       
+  </select>
+  
+  <update id="updateStateById" >
+       update iw_appointment set  appointment_state=#{appointmentState} where id=#{id}
+  </update>
+  
+
+  <update id="updateCheckinStateById" >
+       update iw_appointment set  appointment_state=#{appointmentState}  ,agent_checkin_time=#{agentCheckinTime}, user_checkin_time=#{userCheckinTime}  where id=#{id}
+  </update>
+
+  <!-- 获取约会列表查询条件 -->
+  <sql id="appointmentSearchWhere">
+  	where iwa.agent_id = #{agentId,jdbcType=BIGINT} 
+  	<if test="appointmentState != null and appointmentState != 0">
+  		and iwa.appointment_state &amp; #{appointmentState,jdbcType=TINYINT} = #{appointmentState,jdbcType=TINYINT}
+  	</if>
+  	<if test="startTime != null">
+  		and iwa.appointment_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+  	</if>
+  	<if test="endTime != null">
+  		and iwa.appointment_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+  	</if>
+  	<if test="userId != null">
+  		and iwa.user_id = #{userId,jdbcType=BIGINT}
+  	</if>
+  </sql>
+  
+  <!-- 获取约会总数量 -->
+  <select id="getAppointmentListTotal" resultType="int">
+  	select count(0) from iw_appointment iwa
+  	<include refid="appointmentSearchWhere"/>
+  </select>
+  
+  <!-- 获取约会列表 -->
+  <select id="getAppointmentList" resultMap="AppointmentSearchResultMap">
+  	select iwa.id,iwa.appointment_time,iwa.meet_address,iwa.appointment_state,iwa.update_time,iwa.create_time,iwa.seehouse_number,(count(iws.id)+count(iwsh.id)) see_house_count 
+  	from iw_appointment iwa
+  		left join iw_seekhouse iws on (iwa.id = iws.appointment_id and iwa.appointment_state in (1,2))
+		left join iw_seekhouse_history iwsh on (iwa.id = iwsh.appointment_id and iwa.appointment_state in (3,4,5,6,7,8))
+	<include refid="appointmentSearchWhere"/>
+	group by iwa.id
+	${additionalSql}
+  </select>
+  
+  <!-- 获取中个用户所有的约会未取消或改期的约会 -->
+  
+   <select id="getAppointmentInUseByCustomerId" resultMap="BaseResultMap" >
+
+    select 
+      <include refid="Base_Column_List" />
+      from  iw_appointment a where a.user_id=#{customerId} and a.appointment_state &lt;=4;
+  </select>
+</mapper>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>企业云平台管理系统</title>
+		<link href="../../static/xcloud/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+		<link href="../../static/xcloud/css/ligerui-grid.css" rel="stylesheet" type="text/css" />
+		<link href="../../static/xcloud/css/common.css" rel="stylesheet" type="text/css" />
+		<script src="../../static/xcloud/js/jquery-1.5.2.min.js" type="text/javascript"></script>
+		<script src="../../static/xcloud/js/ligerui.min.js" type="text/javascript"></script>
+		<script src="../../static/xcloud/js/common.js" type="text/javascript"></script>
+	</head>
+	<body>
+		
+		
+		<div class="ftpConter" id="ftpConter" style="display: none;">
+			<div class="ftpMenu">
+				<div class="f-left">批量导入</div>
+			</div>
+			<div class="ftpCon">
+				<div class="uploadFile">
+					<div class="left">*导入内容表：</div>
+					<div class="right">
+						<div class="file-box">
+							<form enctype="multipart/form-data" method="post" action="">
+								<div class="tip"><span class="l-error">导入的模板格式有误！</span></div>
+								<input id="textfield" class="txt" name="textfield" />
+								<a href="#" class="btn">本地导入</a>
+								<input type="file" class="file" onchange="document.getElementById('textfield').value=this.value" size="28" name="fileField" />
+							</form>
+						</div>
+						<div class="download">请按模板格式导入内容表  模板点击此处下载<a href="#">表格模板</a></div>
+					</div>
+					<div class="form-bar-inner">
+						<div class="l-dialog-btn cancle">
+							<div class="l-dialog-btn-l"></div>
+							<div class="l-dialog-btn-r"></div>
+							<div class="l-dialog-btn-inner">关闭</div>
+						</div>
+						<div class="l-dialog-btn">
+							<div class="l-dialog-btn-l"></div>
+							<div class="l-dialog-btn-r"></div>
+							<div class="l-dialog-btn-inner">保存</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br /><br /><br /><br /><br />
+		
+		<script type="text/javascript">
+			var crGrid = {
+				main : "#detail",
+				init : function() {
+					this.loadDetail($(this.main));
+					this.linkedColumn();
+					$(".menu-btn .img").click(function(){
+						$(this).parent().addClass("menu-btn-focus");
+						$(".ftpCon").removeClass("smallImg");
+					})
+					$(".menu-btn .list").click(function(){
+						$(this).parent().removeClass("menu-btn-focus");
+						$(".ftpCon").addClass("smallImg");
+					})
+				},
+				linkedColumn : function() {
+					$.ligerDialog.open( {
+						title : "",
+						top : 50,
+						width : 640,
+						height : 450,
+						target : $("#ftpConter"),
+						cls : "l-custom-openWin l-custom-ftpWin"
+					});
+				},
+				loadDetail : function(d) {
+					LG.loadDetail(d, {url : "_detail.js"}, null);
+				},
+				callback : function(data) {
+					data = data|| {};
+					for ( var p in data) {
+						var ele = $("[class=" + p + "]", detail);
+						if (ele.length > 0) {
+							ele.html(data[p]);
+						}
+					}
+				}
+			}
+			// LG.setFormDefaultBtn(function(){},function(){});
+			 crGrid.init();
+		</script>
+	</body>
+</html>

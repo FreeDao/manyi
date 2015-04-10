@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:mvc="http://www.springframework.org/schema/mvc"
+	 xmlns:widget="http://www.opensourceforce.org/schema/widget"
+	 xmlns:task="http://www.springframework.org/schema/task" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+     xmlns:context="http://www.springframework.org/schema/context"
+     xmlns:jee="http://www.springframework.org/schema/jee"
+     xmlns:util="http://www.springframework.org/schema/util"
+     xmlns:websocket="http://www.springframework.org/schema/websocket"
+     xmlns:lang="http://www.springframework.org/schema/lang"
+     xmlns:oxm="http://www.springframework.org/schema/oxm"
+     xmlns:p="http://www.springframework.org/schema/p"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+     http://www.opensourceforce.org/schema/widget http://www.opensourceforce.org/schema/widget/spring-widget-0.2.0.xsd
+     http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+     http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+     http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd
+     http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.0.xsd
+     http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-4.0.xsd">
+
+	<!-- import resource="classpath:com/honghe/ebbtide/META-INF/ebbtideContext.xml" /-->
+	
+	
+	<import resource="quartzConfig.xml"/>
+	
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="cookieName" value="language" /> 
+		<property name="cookieMaxAge" value="3600" /> 
+		<!-- <property name="defaultLocale" value="zh_CN" /> -->
+	</bean>
+	
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" 
+    	p:fallbackToSystemLocale="true" p:useCodeAsDefaultMessage="true" p:defaultEncoding="UTF-8" p:cacheSeconds="60">
+		<description>Base message source to handle internationalization</description>
+		<property name="basenames">
+			<list>
+				<!-- main resources -->
+				<value>classpath:error</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="order" value="0" />
+	</bean> -->
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" p:validationMessageSource-ref="messageSource" />
+	<bean id="conversion-service" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
+
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="webBindingInitializer">
+			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+				<property name="validator" ref="validator" />
+				<property name="conversionService" ref="conversion-service" />
+			</bean>
+		</property>
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter" >
+					<property name = "supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+							<value>text/html;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" >
+					<property name = "supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+							<value>text/html;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean> 
+	
+	<mvc:annotation-driven validator="validator" />
+	
+    <aop:aspectj-autoproxy />
+    
+    <!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
+    <context:component-scan base-package="com.manyi.fyb">
+    	<!-- <context:exclude-filter type="regex" expression="com.manyi.hims.entity.*"/> -->
+    </context:component-scan>
+    
+     <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+    
+    <mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+		<!-- <bean class="com.ecpss.bocpos.interceptor.HttpPackagesLoggingInterceptor" /> -->
+		
+		
+		
+		<bean class="com.manyi.fyb.callcenter.common.interceptor.SessionInterceptor" init-method="init">
+			<property name="allowHosts">
+				<list>
+					<value>180.166.57.26</value>
+					<value>101.231.144.26</value>
+					<value>192.168.1.*</value>
+					<value>192.168.0.*</value>
+					<value>10.0.0.*</value>
+					<value>127.0.0.1</value>
+					<value>0:0:0:0:0:0:0:1</value>
+				</list>
+			</property>
+		</bean> 
+	
+	</mvc:interceptors>
+	
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/scripts/" mapping="/scripts/**" />
+	<mvc:resources location="/themes/" mapping="/themes/**" />
+	<mvc:resources location="/flash/" mapping="/flash/**" />
+	<mvc:resources location="/*.ico" mapping="/*.ico" />
+	<mvc:resources location="/*.html" mapping="/*.html" />
+	<mvc:resources location="/easyui/" mapping="/easyui/**" />
+	<mvc:resources location="/jqueryui/" mapping="/jqueryui/**" />
+	<mvc:resources location="/html/" mapping="/html/**" />
+	
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="viewResolverJSP" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	</bean>
+
+    
+	<!-- Multipart Resolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="-1" />
+	</bean>
+	
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" scope="singleton">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="200" />
+		<property name="queueCapacity" value="200" />
+	</bean>
+	
+	<!-- bean id="timerTaskExecutor" class="org.springframework.scheduling.timer.TimerTaskExecutor" scope="singleton">
+		<property name="delay" value="10000"/>
+	</bean -->
+
+
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+	<!-- bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/jdbc.properties" />
+	</bean-->
+	<!-- <context:property-placeholder location="/WEB-INF/jdbc.properties" /> -->
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="mailhost.mypna.com" />
+	</bean>
+	
+</beans>

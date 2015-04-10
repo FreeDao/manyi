@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+
+body,html{
+	margin:0px;
+	padding:0px;
+}
+
+.page{}
+
+.page .head{
+	border:1px solid #ABBEBE;
+	background-color:#F2F9FF;	
+}
+
+.page .tab{
+	
+}
+
+.page .tab .content{
+	border:1px solid #ABBEBE;
+	background-color:#FFFFFF;
+	
+
+}
+
+.page .tab .content .bar{
+	border-top:1px solid #ABBEBE;
+	border-bottom:1px solid #ABBEBE;
+	background-color:#D5DDE8;
+	font-weight:bold;
+	padding-left:25px;
+}

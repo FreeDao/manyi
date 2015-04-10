@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>imageExplain</title>
+<style type="text/css">
+	/* div{color:#333;margin:0 auto; padding:0;}
+	img{border-right-width: 20px; margin-right: 20px;}
+	hr{width:640px;float:left;} */
+	
+	@CHARSET "UTF-8";
+*{padding:0;margin: 0;color:#3c3c3c;}
+.room_takePhote {
+	width:100%;
+	height:48px;
+	background-color: #12c1c4;
+	color: #ffffff;
+	font-size: 1.25em;
+	padding-left: 20%;
+}
+.room_title{
+		color:#3d4040;
+		width:91%;
+		text-align: center;
+		height: 52px;
+		line-height: 52px;
+		margin: 13px 15px  13px 15px;
+		border-top: 1px solid #e2dede;
+}
+.room_title_first{
+		color:#3d4040;
+		width:91%;
+		text-align: center;
+		height: 52px;
+		line-height: 52px;
+		margin: 13px 15px  13px 15px;
+}
+.room_example {
+	display:box;
+	display:-webkit-box;
+	display: -moz-box;
+	-webkit-box-orient: horizontal;
+	-moz-box-orient: horizontal;
+	box-orient : horizontal;
+	width:91%;
+	margin: 13px 15px  13px 15px;
+}
+.room_example .room_image , .room_example .room_description{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; 
+	-webkit-box-sizing:border-box; 
+	-webkit-box-flex:1;
+	  -moz-box-flex:1;
+	 box-flex:1; 
+	 width: 0%;
+	 position: relative;
+	 overflow:hidden;
+}
+.room_example  .room_image {
+	background-repeat:no-repeat;
+	height:100px;
+	line-height:100px;
+	background-size : contain;
+	-moz-background-size : contain;
+	-webkit-background-size : contain;
+}
+.room_example .room_image_01{
+	background-image: url("/images/img_elevator.png");
+}
+.room_example .room_image_02{
+	background-image: url("/images/img_mailbox.png");
+}
+.room_example  .room_image_03{
+	background-image: url("/images/img_doorplate.png");
+}
+
+.room_inline {
+		background-image: url("/images/img_take_photo_standards.png");
+		width:91%;
+		height: 620px;
+		background-size:cover;
+		margin: 13px 15px  13px 15px;
+}
+
+.room_example  .room_image_04{
+	background-image: url("/images/img_take_photo_tip01.png");
+}
+
+.room_example  .room_image_05{
+	background-image: url("/images/img_take_photo_tip02.png");
+}
+
+.room_example  .room_image_06{
+	background-image: url("/images/img_take_photo_tip03.png");
+}
+
+@media screen and (orientation:landscape) {
+	.room_inline {
+		background-image: url("/images/img_take_photo_standards.png");
+		height: 1096px;
+		background-size:cover;
+		margin: 13px 15px  13px 15px;
+	}
+}
+
+.description_title {font-size: 1.25em;}
+.description_title_green {font-size: 1.25em;color:#12C1C4;}
+.room_title_red{color:#e16053;font-size: 1.25em;text-align:center}
+</style>
+
+</head>
+ <body>
+    <!-- <div class="room_takePhote">拍照规范</div> -->
+    
+    <div class="room_title_first"><h2>电梯或邮箱</h2></div>
+    <div class="room_example">
+    	<div class="room_image room_image_01"></div>
+    	<div class="room_description">
+    			<div class="description_title">对于电梯房</div>
+    			<div>请拍一张电梯按钮照片</div>
+    			<div>要求如下</div>
+    		    <div>・请将电梯的按钮全部拍入</div>
+    			<div>・能看得清按钮的数字</div>
+    		</ul>
+    	</div>
+    </div>
+    <div class="room_example">
+    	<div class="room_image  room_image_02"></div>
+    	<div class="room_description">
+    			<div class="description_title">若无电梯拍邮箱</div>
+    			<div>要求如下</div>
+    			<div>・有最高楼层的邮箱</div>
+    			<div>・能看得清号码</div>
+    	</div>
+    </div>
+    
+    <div class="room_title"><h2>门牌</h2></div>
+    <div class="room_example">
+    	<div class="room_image room_image_03"></div>
+    	<div class="room_description">
+    			<div class="description_title">有门牌</div>
+    			<div>・门半开，能看清门牌</div>
+    			<br />
+    			<div class="description_title">无门牌</div>
+    			<div>・半开房门，能看清室内情况</div>
+    	</div>
+    </div>
+    
+    <div class="room_title">
+    	<h2>室内照片</h2>
+    </div>
+    <div class="room_title_red">如下照片将不被采用哦</div>
+    <div class="room_inline">
+     
+    	
+    </div>
+    
+    <div class="room_title"><h2>如何让照片拍的更好</h2></div>
+    <div class="room_example">
+    	<div class="room_image room_image_04"></div>
+    	<div class="room_description">
+    			<div class="description_title_green">拍前开灯</div>
+    			<div>采光更棒</div>
+    	</div>
+    </div>
+    
+    <div class="room_example">
+    	<div class="room_image room_image_05"></div>
+    	<div class="room_description">
+    			<div class="description_title_green">站在墙角或门口拍摄</div>
+    			<div>取景角度最大</div>
+    	</div>
+    </div>
+    
+    <div class="room_example">
+    	<div class="room_image room_image_06"></div>
+    	<div class="room_description">
+    			<div class="description_title_green">横屏，既拍地板又拍天花板</div>
+    			<div>更好地表达空间结构</div>
+    	</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/scripts/jquery.min.js"></script>
+</head>
+<body>
+<h3>
+	处理结束
+</h3>
+
+<script >
+$(document).ready(function(){
+	var i =0;
+	function gong(){
+	
+	jQuery.support.cors = true;
+		$.ajax({
+			url:'http://www.yunxian.ccoo.cn/forum/logchk.asp',
+			type: "get",
+			 contentType: "application/x-www-form-urlencoded",
+	           dataType: "html",
+			success:function(){
+				i++;
+				$("#msg").html(i);
+			},
+			error:function(data){
+				$("#msg").html(data);
+			}
+		});
+		
+		/*
+		$.ajax({
+            url:"http://www.yunxian.ccoo.cn/forum/logchk.asp?q=mah&token=90d2fad44172390b11527557e6250e50&secretkey=83e2f0484edbd2ad6fc9888c1e30ea44&output=json",
+            type:'GET',
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "html",
+            crossDomain:true,
+            beforeSend: function(x) {
+                if(x && x.overrideMimeType) {
+                    x.overrideMimeType("application/j-son;charset=UTF-8");
+                }
+            },
+            success:function(data){
+            	$("#msg").html(data);
+            	
+			},
+			error:function(data){
+				$("#msg").html(data);
+			}
+        });
+		
+		*/
+		
+		
+		
+	}
+	
+	//window.setInterval("gong", 1000);
+	//gong();
+	
+});
+</script>
+
+</body>
+</html>

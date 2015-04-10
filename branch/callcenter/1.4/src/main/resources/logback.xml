@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<!-- Appenders http://logback.qos.ch/manual/appenders.html -->
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+      		<level>INFO</level>
+      		<onMatch>ACCEPT</onMatch>
+      		<onMismatch>DENY</onMismatch>
+    	</filter>		
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>		
+			
+			[%date{yyyy-MM-dd HH:mm:ss,GMT+8}] [%relative] [%logger] [%level]->%msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<File>./logs/callcenter.html</File>
+		<Append>true</Append>
+		<Encoding>UTF-8</Encoding>
+		<BufferedIO>true</BufferedIO>
+		<ImmediateFlush>true</ImmediateFlush>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+      		<level>INFO</level>
+      		<onMatch>ACCEPT</onMatch>
+      		<onMismatch>DENY</onMismatch>
+    	</filter>
+		<layout class="ch.qos.logback.classic.html.HTMLLayout">
+			<Pattern>
+				<!-- %date [%thread] %-5level %logger{35} - %msg%n -->
+				%d{yyyy-MM-dd HH:mm:ss,GMT+8}%relative%thread%level%logger%msg
+			</Pattern>
+		</layout>
+	</appender>
+	<appender name="ERRORFILE" class="ch.qos.logback.core.FileAppender">
+		<File>./logs/callcenter_error.html</File>
+		<Append>false</Append>
+		<Encoding>UTF-8</Encoding>
+		<BufferedIO>true</BufferedIO>
+		<ImmediateFlush>true</ImmediateFlush>
+    	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      		<level>WARN</level>
+    	</filter>
+		<layout class="ch.qos.logback.classic.html.HTMLLayout">
+			<Pattern>
+				<!-- %date [%thread] %-5level %logger{35} - %msg%n -->
+				%d{yyyy-MM-dd HH:mm:ss,GMT+8}%relative%thread%level%logger%msg
+			</Pattern>
+		</layout>
+	</appender>
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ERRORFILE" />
+	</root>
+</configuration>

@@ -1,0 +1,23 @@
+﻿[
+    {id: "root", text: "爱屋经纪人管理"},
+    
+	{id: "seekHouseMng", text: "约看房管理",pid:"root"},
+    
+	{id: "agentUnproc",url:"pages/agent/agentUnproc.jsp", text: "待处理约看", pid: "seekHouseMng" },
+	
+	{id: "allApm",url:"pages/agent/agentAllSeekHouse.jsp", text: "所有约看管理", pid: "seekHouseMng" },
+
+	{id: "schedule",url:"pages/schedule.jsp", text: "日程表", pid: "seekHouseMng" },
+	
+	{id: "userMng", text: "用户管理",pid:"root"},
+
+	{id: "userSearch",url:"pages/userSearch.jsp", text: "用户查询", pid: "userMng" },
+	
+	{id: "userRefer", text: "用户相关页面",pid:"root"},
+	
+	{id: "userWaitDeal",url:"pages/user/seekHouse.html", text: "待处理", pid: "userRefer" },
+	
+	{id: "appointment", url:"pages/appointmentSearch.jsp",text: "约会查看",pid:"userRefer"},
+	
+	{id: "sysMmg", text: "系统管理"}
+]

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/scripts/jquery.min.js"></script>
+</head>
+<body>
+<h3>
+	处理结束
+</h3>
+
+<script >
+$(document).ready(function(){
+	var i =0;
+	function gong(){
+	
+	jQuery.support.cors = true;
+		$.ajax({
+			url:'http://www.yunxian.ccoo.cn/forum/logchk.asp',
+			type: "get",
+			 contentType: "application/x-www-form-urlencoded",
+	           dataType: "html",
+			success:function(){
+				i++;
+				$("#msg").html(i);
+			},
+			error:function(data){
+				$("#msg").html(data);
+			}
+		});
+		
+		/*
+		$.ajax({
+            url:"http://www.yunxian.ccoo.cn/forum/logchk.asp?q=mah&token=90d2fad44172390b11527557e6250e50&secretkey=83e2f0484edbd2ad6fc9888c1e30ea44&output=json",
+            type:'GET',
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "html",
+            crossDomain:true,
+            beforeSend: function(x) {
+                if(x && x.overrideMimeType) {
+                    x.overrideMimeType("application/j-son;charset=UTF-8");
+                }
+            },
+            success:function(data){
+            	$("#msg").html(data);
+            	
+			},
+			error:function(data){
+				$("#msg").html(data);
+			}
+        });
+		
+		*/
+		
+		
+		
+	}
+	
+	//window.setInterval("gong", 1000);
+	//gong();
+	
+	var str='[{"children":[{"children":[{"children":[],"colspan":"1","id":"3","name":"首尾语是否规范","pid":"2","rowspan":"1"},{"children":[],"colspan":"1","id":"4","name":"服务用语是否规范","pid":"2","rowspan":"1"}],"colspan":"2","id":"2","name":"规范用语","pid":"1","rowspan":"1"},{"children":[{"children":[],"colspan":"1","id":"6","name":"服务流程是否规范","pid":"5","rowspan":"1"},{"children":[],"colspan":"1","id":"7","name":"业务处理是否准确","pid":"5","rowspan":"1"}],"colspan":"2","id":"5","name":"服务准确","pid":"1","rowspan":"1"},{"children":[{"children":[],"colspan":"1","id":"9","name":"聆听是否准确","pid":"8","rowspan":"1"},{"children":[],"colspan":"1","id":"10","name":"沟通技巧","pid":"8","rowspan":"1"},{"children":[],"colspan":"1","id":"11","name":"异议处理","pid":"8","rowspan":"1"},{"children":[],"colspan":"1","id":"12","name":"服务态度","pid":"8","rowspan":"1"}],"colspan":"4","id":"8","name":"服务能力","pid":"1","rowspan":"1"}],"colspan":"11","id":"1","name":"评分考核","rowspan":"1"}]';
+	var jso1 = eval("("+str+")");
+	//alert(jso1.children);
+	
+	
+});
+</script>
+
+</body>
+</html>

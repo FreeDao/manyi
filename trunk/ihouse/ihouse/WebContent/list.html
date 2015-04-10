@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate" />
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/themes/icon.css" />
+<script type="text/javascript" src="/scripts/jquery.min.js">
+	
+</script>
+<script type="text/javascript" src="/scripts/jquery.easyui.min.js">
+	
+</script>
+
+<style type="text/css">
+	.select_a {
+		border : 1px solid #000;
+		color : red;
+	}
+	.none_a{
+		border : none;
+		color : blue;
+	}
+</style>	
+
+</head>
+<body>	
+
+
+	<!-- 搜索 -->
+	<div id='search'>
+	
+		<div class='area'>区域： 
+				<a href ='javascript:void(0);' id='area_' onclick="houseAreaChange('')">全部</a> |
+				<a href ='javascript:void(0);' id='area_1' onclick="houseAreaChange('南汇',1)">南汇</a> | 
+				<a href ='javascript:void(0);' id='area_2' onclick="houseAreaChange('卢湾',2)">卢湾</a> |
+				<a href ='javascript:void(0);' id='area_3' onclick="houseAreaChange('嘉定',3)">嘉定</a> |
+				<a href ='javascript:void(0);' id='area_4' onclick="houseAreaChange('奉贤',4)">奉贤</a> |
+				<a href ='javascript:void(0);' id='area_5' onclick="houseAreaChange('宝山',5)">宝山</a> |
+				<a href ='javascript:void(0);' id='area_6' onclick="houseAreaChange('崇明',6)">崇明</a> |
+				<a href ='javascript:void(0);' id='area_7' onclick="houseAreaChange('徐汇',7)">徐汇</a> |
+				<a href ='javascript:void(0);' id='area_8' onclick="houseAreaChange('普陀',8)">普陀</a> |
+				<a href ='javascript:void(0);' id='area_9' onclick="houseAreaChange('杨浦',9)">杨浦</a> |
+				<a href ='javascript:void(0);' id='area_10' onclick="houseAreaChange('松江',10)">松江</a> |
+				<a href ='javascript:void(0);' id='area_11' onclick="houseAreaChange('浦东',11)">浦东</a> |
+				<a href ='javascript:void(0);' id='area_12' onclick="houseAreaChange('虹口',12)">虹口</a> |
+				<a href ='javascript:void(0);' id='area_13' onclick="houseAreaChange('金山',13)">金山</a> |
+				<a href ='javascript:void(0);' id='area_14' onclick="houseAreaChange('长宁',14)">长宁</a> |
+				<a href ='javascript:void(0);' id='area_15' onclick="houseAreaChange('闵行',15)">闵行</a> |
+				<a href ='javascript:void(0);' id='area_16' onclick="houseAreaChange('闸北',16)">闸北</a> |
+				<a href ='javascript:void(0);' id='area_17' onclick="houseAreaChange('青浦',17)">青浦</a> |
+				<a href ='javascript:void(0);' id='area_18' onclick="houseAreaChange('静安',18)">静安</a> |
+				<a href ='javascript:void(0);' id='area_19' onclick="houseAreaChange('黄浦',19)">黄浦</a> 
+
+		</div>
+	</div>
+	
+	<hr/>
+	
+	<!-- 列表 -->
+	<table id ='mainfrom' style="width:1000px; height:550px;"></table>
+	
+	<!-- 查看信息 -->
+	<div id='view' style="width:400px;height:380px;padding:10px 20px;display: none;">
+		名称：<span class='view' id="estatename"></span><br/>
+		编号：<span class='view' id="cityname"></span>
+	</div>
+	
+	<!-- 新增，修改 -->
+	<div id='main_div' style="width:400px;height:380px;padding:10px 20px;display: none;">
+	  <form  method="post" >
+		名称: <input  name ='name' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		创建时间: <input  name ='createTime' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		楼座编号: <input  name ='building' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		楼层: <input  name ='floor' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		房号: <input  name ='room' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		总高层: <input  name ='layers' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		房屋类型: <input  name ='type' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		朝向: <input  name ='direction' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		所属小区: <input  name ='estate' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		产权人: <input  name ='mainOwner' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		建筑面积: <input  name ='coveredArea' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		内空面积: <input  name ='spaceArea' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		产权: <input  name ='right' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		证件: <input  name ='certificates' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+	  </form>
+    </div>
+    
+<script type="text/javascript">
+
+var area_key='';
+
+/*筛选 房屋的 区域信息
+ * txt ： 筛选关键字
+   id : 标签id
+ */
+function houseAreaChange(txt,id){
+	   $(".area").find("a.select_a").attr("class","none_a");
+		 $("#area_"+id).attr("class","select_a");
+		 area_key = txt;
+		data_from.datagrid("reload",{'residence.estate.areaId':area_key});//根据 请求参数 查询对应的值
+}
+
+	
+	
+	var data_from  = $('#mainfrom').datagrid({
+	       url:'/residence/list.rest', 
+	       //fitColumns : true, //True 就会自动扩大或缩小列的尺寸以适应表格的宽度并且防止水平滚动
+	       striped : true, //True 就把行条纹化
+	       pagination : true ,//分页
+	       rownumbers : true, //显示行号
+	       pageSize : 10, pageNumber :1,
+	       pageList :[10,30,50,100],//列表分页
+	       sortName : 'estateid', sortOrder : 'desc',
+	       loadMsg : '数据正在努力加载中...',
+	       selectOnCheck: true,
+	       checkOnSelect: true,
+	       columns:[[
+	                {field:'hid' , checkbox:true }//显示一个checkbox
+	 	            ,{field:'name',title:'名称',align:'center',resizable:true,hidden:false,sortable:true} 
+	 	            ,{field:'createTime',title:'创建时间',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'building',title:'楼座编号',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'floor',title:'楼层',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'room',title:'房号',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'layers',title:'总高层',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'type',title:'房屋类型',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'direction',title:'朝向',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'estate',title:'所属小区',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'mainOwner',title:'产权人',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'coveredArea',title:'建筑面积',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'spaceArea',title:'内空面积',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'right',title:'产权',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'certificates',title:'证件',align:'center',resizable:true,hidden:false,sortable:true}
+
+	 	        ]],
+	       toolbar:[{
+		    	   		text:'添加',
+		    	        iconCls:'icon-add',   
+		    	        handler:function(){
+		    	        	item_btn("add");
+		    	        }
+	    	       },
+	    	       {
+		    	   		text:'编辑',
+		    	        iconCls:'icon-edit',   
+		    	        handler:function(){
+		    	        	item_btn("edit");
+		    	        }  
+		    	   }] ,
+	        onDblClickRow :function(rowIndex,rowData){
+	        	view_btn(rowData);
+	        }
+	 });  
+	 
+	
+	 /*
+	 查看
+	 */
+	function view_btn(row){
+	  	$("#view").show();
+	  	$("#view").find(".view").each(function(p){
+    		var self =  $(this);
+    		self.html(row[self.attr("id")]);
+    	});
+    	$('#view').dialog({   
+    	     modal:true  ,
+    	     resizable :true,
+    	     collapsible : true,
+    	     title : '查看',
+    	     buttons:[
+				{
+				    text:'好',
+				    iconCls:'icon-ok',
+				    handler:function(){
+				        $("#view").dialog("close");
+				    }
+				}
+    	        ]
+    	  });
+	 }
+	 
+	/*
+	1，新增
+	2，修改
+	*/
+	function item_btn(type){
+		if(type == 'edit'){
+	    	var rows = $('#mainfrom').datagrid('getSelections');//得到选中的行
+	    	if(rows.length > 1){  $.messager.alert('温馨提示','不能选择多行进行编辑！','info'); return false;}
+	    	if(rows.length <= 0){ $.messager.alert('温馨提示','请选择数据！','info'); return false;}
+	    	$("#main_div").find("input").each(function(p){
+	    		var self =  $(this);
+	    		self.val(rows[0][self.attr("name")]);
+	    	});
+	    	$("#main_div form").attr("action","update.do");
+		}else if(type == 'add'){
+			//新增
+			$("#main_div").find("input").val("");
+			$("#main_div form").attr("action","save.do");
+		}
+		
+    	$("#main_div").show();
+    	$("#main_div").dialog({  
+   	     modal:true  ,
+   	     resizable :true,
+   	     collapsible : true,
+   	     title : type == 'add' ? '新增':'修改',
+   	     buttons:[
+			{
+			    text:'保存',
+			    iconCls:'icon-ok',
+			    handler:function(){
+			    	
+			    	//验证 ， 提交 表单
+			    	$("#main_div form").submit();
+			        $("#main_div").dialog("close");
+			    }
+			 },
+			 {
+			    text:'取消',
+			    iconCls:'icon-cancel',
+			    handler:function(){
+			        $("#main_div").dialog("close");
+				}
+			 }
+   	        ]
+   	  });
+	}
+	
+	 
+	</script>
+	
+	
+	</body>
+</html>

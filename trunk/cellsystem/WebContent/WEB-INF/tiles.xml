@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+<!-- 
+	<definition name="base.definition" template="/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/header.jsp" />
+		<put-attribute name="menu" value="/menu.jsp" />
+		<put-attribute name="body" value="/body.jsp" />
+		<put-attribute name="footer" value="/footer.jsp" />
+		<put-attribute name="main" value="" />
+	</definition>
+
+	<definition name="uc.login" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/login.jsp" />
+	</definition>
+	
+	<definition name="uc.city" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/city.jsp" />
+	</definition>
+	
+	<definition name="global.errors" extends="base.definition">
+		<put-attribute name="title" value="has Errors" />
+		<put-attribute name="body" value="/errors.jsp" />
+	</definition>
+	
+	<definition name="city.list" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/city/list.jsp" />
+	</definition>
+	
+	
+	
+	<definition name="city.add" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/city/add.jsp" />
+	</definition>
+	
+	<definition name="city.modify" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/city/modify.jsp" />
+	</definition>
+	
+	<definition name="city.view" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/city/view.jsp" />
+	</definition>
+	
+	
+	<definition name="uc.tblemployee" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/tblemployee.jsp" />
+	</definition>
+	
+		<definition name="uc.tblemployee" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/tblemployee.jsp" />
+	</definition>
+	
+	
+
+
+	<definition name="tbloperator.list" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tbloperator/list.jsp" />
+	</definition>
+	
+	<definition name="tbloperator.add" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tbloperator/add.jsp" />
+	</definition>
+	
+	<definition name="tbloperator.modify" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tbloperator/modify.jsp" />
+	</definition>
+	
+	<definition name="tbloperator.view" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tbloperator/view.jsp" />
+	</definition>
+	
+	
+		<definition name="tblrole.list" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblrole/list.jsp" />
+	</definition>
+	
+	<definition name="tblrole.add" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblrole/add.jsp" />
+	</definition>
+	
+	<definition name="tblrole.modify" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblrole/modify.jsp" />
+	</definition>
+	
+	<definition name="tblrole.view" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblrole/view.jsp" />
+	</definition>
+	
+	
+	<definition name="tblpermissiongroup.list" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblpermissiongroup/list.jsp" />
+	</definition>
+	
+	<definition name="tblpermissiongroup.add" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblpermissiongroup/add.jsp" />
+	</definition>
+	
+	<definition name="tblpermissiongroup.modify" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblpermissiongroup/modify.jsp" />
+	</definition>
+	
+	<definition name="tblpermissiongroup.view" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/page/tblpermissiongroup/view.jsp" />
+	</definition>
+	
+	
+	 -->
+	 
+	
+	
+	
+	<!-- easy ui -->
+	<definition name="base.page" template="/common/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="" />
+	</definition>
+
+	<definition name="city.list" extends="base.page">
+		<put-attribute name="title" value="城市列表" />
+		<put-attribute name="body" value="/page/city/list.jsp" />
+	</definition>
+	
+	<!-- easy ui -->
+	
+	
+	
+	
+</tiles-definitions>

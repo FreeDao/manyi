@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manyi.iw.soa.mapper.SeekhouseMapper" >
+  <resultMap id="BaseResultMap" type="com.manyi.iw.soa.entity.Seekhouse" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="appointment_id" property="appointmentId" jdbcType="BIGINT" />
+    <result column="agent_id" property="agentId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="wish_time" property="wishTime" jdbcType="VARCHAR" />
+    <result column="recommend_source" property="recommendSource" jdbcType="TINYINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  
+  
+  
+  <sql id="Base_Column_List" >
+    id, appointment_id, agent_id, user_id, house_id, state, memo, update_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from iw_seekhouse
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from iw_seekhouse
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.manyi.iw.soa.entity.Seekhouse" >
+    insert into iw_seekhouse (id, appointment_id, agent_id, 
+      user_id, house_id, state, 
+      memo, update_time, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{appointmentId,jdbcType=BIGINT}, #{agentId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{houseId,jdbcType=BIGINT}, #{state,jdbcType=TINYINT}, 
+      #{memo,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.manyi.iw.soa.entity.Seekhouse" >
+    insert into iw_seekhouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appointmentId != null" >
+        appointment_id,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appointmentId != null" >
+        #{appointmentId,jdbcType=BIGINT},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manyi.iw.soa.entity.Seekhouse" >
+    update iw_seekhouse
+    <set >
+      <if test="appointmentId != null" >
+        appointment_id = #{appointmentId,jdbcType=BIGINT},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null" >
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manyi.iw.soa.entity.Seekhouse" >
+    update iw_seekhouse
+    set appointment_id = #{appointmentId,jdbcType=BIGINT},
+      agent_id = #{agentId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      house_id = #{houseId,jdbcType=BIGINT},
+      state = #{state,jdbcType=TINYINT},
+      memo = #{memo,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getWaitDealSeeHouse"  resultType="com.manyi.iw.soa.seekhouse.model.SeeHouseVo">
+			SELECT
+			    a.id as id,
+			    a.memo as memo,
+				a.house_id AS houseId,
+				e.`name` AS bankuai,
+				d.`name` AS xiaoqu,
+				b.room AS fanghao,
+				a.state as state,
+				a.wish_time as wishTime,
+				e.path as path,
+				CONCAT(
+					b.bedroomSum,
+					'室',
+					b.livingRoomSum,
+					'厅',
+					b.wcSum,
+					'卫',
+					b.balconySum,
+					'阳台'
+				) AS huxing,
+				c.rentPrice AS jiage,
+				group_CONCAT(
+					f.hostName,
+					f.hostMobile SEPARATOR '/'
+				) AS lianxifs
+			FROM
+				iw_seekhouse a LEFT JOIN 
+				house b on a.house_id = b.houseId LEFT JOIN
+				houseresource c on b.houseId = c.houseId LEFT JOIN
+				area d on b.estateId = d.areaId LEFT JOIN
+				area e on d.parentId = e.areaId LEFT JOIN
+				houseresourcecontact f ON  a.house_id = f.houseId
+			WHERE
+			(a.state =1 or a.state =7)
+			AND a.user_id = #{userId}
+			AND a.appointment_id=0
+			<if test="type==0" >
+               AND a.recommend_source!=3
+           </if>
+			<if test="type&gt;0" >
+               AND a.recommend_source=3
+           </if>
+			GROUP BY
+				a.house_id;
+  </select>
+  
+    <select id="getCancelSeeHouse" parameterType="java.lang.Long" resultType="com.manyi.iw.soa.seekhouse.model.SeeHouseVo">
+			SELECT
+			    a.id as id,
+				a.house_id AS houseId,
+				e.`name` AS bankuai,
+				d.`name` AS xiaoqu,
+				b.room AS fanghao,
+				g.appointment_time as seeHouseTime,
+				a.wish_time as wishTime,
+				e.path as path,
+				CONCAT(
+					b.bedroomSum,
+					'室',
+					b.livingRoomSum,
+					'厅',
+					b.wcSum,
+					'卫',
+					b.balconySum,
+					'阳台'
+				) AS huxing,
+				c.rentPrice AS jiage,
+				group_CONCAT(
+					f.hostName,
+					f.hostMobile SEPARATOR '/'
+				) AS lianxifs
+			FROM
+				iw_seekhouse a LEFT JOIN 
+				house b on a.house_id = b.houseId LEFT JOIN
+				houseresource c on b.houseId = c.houseId LEFT JOIN
+				area d on b.estateId = d.areaId LEFT JOIN
+				area e on d.parentId = e.areaId LEFT JOIN
+				houseresourcecontact f ON  a.house_id = f.houseId
+                LEFT JOIN  iw_appointment g on a.appointment_id=g.id
+			WHERE
+			
+            a.state=8
+			AND a.user_id = #{id}
+			AND a.appointment_id=0
+			GROUP BY
+				a.house_id;
+  </select>
+  
+  <update id="updateSeekHouseMemo">
+          update iw_seekhouse set memo=#{memo} where id=#{id};
+  </update>
+  
+  <delete id="deletebyhoustId">
+          delete from iw_seekhouse where house_id=#{id};
+  </delete>
+
+   <insert id="addSeekHouses">
+ 	insert into iw_seekhouse (appointment_id,agent_id,user_id,house_id,state,create_time,recommend_source) values
+	<foreach collection="list" item="m" index="index" separator=",">
+	(#{m.appointmentId},#{m.agentId},#{m.userId},#{m.houseId},#{m.state},now(),#{m.recommendSource})
+	</foreach>
+	;
+   </insert>
+   
+   <update id="updateStateByAppointMentId">
+       update iw_seekhouse set state=#{state},appointment_id= 0 where appointment_id=#{appointmentId};
+   </update>
+   
+   <update id="updateStateByAppointMentIdOnly">
+       update iw_seekhouse set state=#{state}  where appointment_id=#{appointmentId};
+   </update>
+   <select  id="getSeekhouseByAppointMentId" parameterType="java.lang.Long"  resultMap="BaseResultMap">
+            select 
+                <include refid="Base_Column_List"/>
+			    from iw_seekhouse
+			    where appointment_id = #{id};
+   </select>
+   
+   <update id="updateHousesStateByAppointMentId">
+              update iw_seekhouse set state=#{state},appointment_id= #{appointmentId} where agent_id=#{agentId} and user_id=#{customerId} and house_id in
+              <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+               #{item}  
+             </foreach> 
+             ;
+   </update>
+   <update id="updateHousesStateById" >
+              update iw_seekhouse set state=#{state},memo=#{memo} 
+              where id= #{id}
+             ;
+   </update>
+   <update id="updateHousesStateZeroById" >
+              update iw_seekhouse set state=#{state},memo=#{memo},appointment_id= 0
+              where id= #{id}
+             ;
+   </update>
+   <update id="updateHousesStateAppointmentIdById" >
+              update iw_seekhouse set state=#{state},appointment_id=#{appointmentId} 
+              where id= #{id}
+             ;
+   </update>
+   
+       <select id="getSeeHouseByAppointmentId"  resultType="com.manyi.iw.soa.seekhouse.model.SeeHouseVo">
+			SELECT
+			    a.id as id,
+			    a.memo,
+				a.house_id AS houseId,
+				e.`name` AS bankuai,
+				d.`name` AS xiaoqu,
+				b.room AS fanghao,
+				g.appointment_time as seeHouseTime,
+				a.wish_time as wishTime,
+				e.path as path,
+				a.state as state,
+				CONCAT(
+					b.bedroomSum,
+					'室',
+					b.livingRoomSum,
+					'厅',
+					b.wcSum,
+					'卫',
+					b.balconySum,
+					'阳台'
+				) AS huxing,
+				c.rentPrice AS jiage,
+				group_CONCAT(
+					f.hostName,
+					f.hostMobile SEPARATOR '/'
+				) AS lianxifs
+			FROM
+				iw_seekhouse a LEFT JOIN 
+				house b on a.house_id = b.houseId LEFT JOIN
+				houseresource c on b.houseId = c.houseId LEFT JOIN
+				area d on b.estateId = d.areaId LEFT JOIN
+				area e on d.parentId = e.areaId LEFT JOIN
+				houseresourcecontact f ON  a.house_id = f.houseId
+                LEFT JOIN  iw_appointment g on a.appointment_id=g.id
+			WHERE
+             g.agent_id = #{agentId}
+			AND a.appointment_id=#{appointmentId}
+			GROUP BY
+				a.house_id;
+  </select>
+  
+  <!-- 找到所有只包含一套 约看id 对应 房源的约会id -->
+  <select id="getWillCancelAppointmentIds" resultType="Long">
+	  SELECT
+		t.appointment_id
+		FROM
+			iw_seekhouse t ,
+		(
+			SELECT
+					a.appointment_id as appointment_id
+				FROM
+					iw_seekhouse a
+				WHERE
+					a.house_id = #{houseId}
+				AND a.appointment_id > 0
+		) b
+		where 
+			t.appointment_id =b.appointment_id
+		GROUP BY
+			t.appointment_id
+		having count(1)=1
+  </select>
+  
+  <!-- 获取看房单中状态为预约中、改期中、取消中状态的数据的经纬度集合 -->
+  <select id="getSeekhousePositionList" resultType="com.manyi.iw.soa.seekhouse.user.model.SeekhousePositionResponse">
+  	select
+		iws.id,
+		h.houseId,es.longitude,es.latitude,iws.state status,iws.recommend_source recommendSource
+		from iw_seekhouse iws
+		join house h on iws.house_id = h.houseId
+		left join area es on h.estateId = es.areaId
+		left join area a on a.areaId = es.parentId
+		left join area b on b.areaId = a.parentId
+	where iws.state in(1,7,8) and iws.user_id = #{userId,jdbcType=BIGINT} and iws.agent_id = #{agentId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteSeekhouseNoKFDByCustomerId">
+  
+      delete from iw_seekhouse  where  user_id=#{customerId} and state  &lt;&gt;0 and (state !=8 or  state!=5);
+  </delete>
+  
+  <select id="getSeeHouseByUnqiune" resultType="Long" >
+    select 
+      a.id
+      from iw_seekhouse a where a.agent_id=#{agentId} and a.user_id=#{customerId} and a.house_id=#{houseId};
+  </select>
+  
+  
+  <delete id="deleteSeekhouseNoRemcommand">
+        delete from   iw_seekhouse  where  house_id=#{houseId} and appointment_id=0 and recommend_source!=2;
+  </delete>
+  <select id="getSeekhouseRemcommand">
+      select 
+    <include refid="Base_Column_List" />
+       from   iw_seekhouse  where  house_id=#{houseId} and recommend_source=2 and appointment_id=0;
+  </select>
+</mapper>

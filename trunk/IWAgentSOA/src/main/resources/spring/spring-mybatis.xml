@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:mvc="http://www.springframework.org/schema/mvc"
+	 xmlns:widget="http://www.opensourceforce.org/schema/widget"
+	 xmlns:task="http://www.springframework.org/schema/task" 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+     xmlns:context="http://www.springframework.org/schema/context"
+     xmlns:jee="http://www.springframework.org/schema/jee"
+     xmlns:util="http://www.springframework.org/schema/util"
+     xmlns:websocket="http://www.springframework.org/schema/websocket"
+     xmlns:lang="http://www.springframework.org/schema/lang"
+     xmlns:oxm="http://www.springframework.org/schema/oxm"
+     xmlns:p="http://www.springframework.org/schema/p"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+     http://www.opensourceforce.org/schema/widget http://www.opensourceforce.org/schema/widget/spring-widget-0.2.0.xsd
+     http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+     http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+     http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd
+     http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.0.xsd
+     http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-4.0.xsd" >
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" scope="singleton">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="validationQuery" value="select 1" />
+		<property name="testWhileIdle" value="true" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+	</bean>
+
+
+
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="mapperLocations" value="classpath:mybatis/mapper/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.manyi.iw.soa.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 注解方式配置事物 -->
+	<tx:annotation-driven /> 
+</beans>

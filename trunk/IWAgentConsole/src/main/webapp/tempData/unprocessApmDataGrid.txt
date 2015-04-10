@@ -1,0 +1,125 @@
+﻿{
+    "total":50,
+    "data":[
+        {
+            "name":"程康",
+            "phoneNumber":"18627916205",
+            "userType":"2",
+            "applyTime":"2014-06-10 12:07",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"12号602",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"程康",
+            "phoneNumber":"18627916205",
+            "userType":"2",
+            "applyTime":"2014-06-11 16:37",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"3号508",
+            "huxing":"3房1厅2卫",
+            "price":"7900"
+        },
+        {
+            "name":"程康",
+            "phoneNumber":"18627916205",
+            "userType":"2",
+            "applyTime":"2014-06-10 12:00",
+            "applyType":"2",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"3号401",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"程康",
+            "phoneNumber":"18627916205",
+            "userType":"2",
+            "applyTime":"2014-06-10 14:24",
+            "applyType":"3",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"13号502",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"张三",
+            "phoneNumber":"13554374703",
+            "userType":"1",
+            "applyTime":"2014-06-01 13:30",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"14号512",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"张三",
+            "phoneNumber":"13554374703",
+            "userType":"1",
+            "applyTime":"2014-06-01 13:40",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"14号513",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"李四",
+            "phoneNumber":"15879236554",
+            "userType":"2",
+            "applyTime":"2014-05-28 12:07",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"12号602",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"王五",
+            "phoneNumber":"13871652114",
+            "userType":"1",
+            "applyTime":"2014-06-05 12:07",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"12号602",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"赵六",
+            "phoneNumber":"13914255411",
+            "userType":"2",
+            "applyTime":"2014-06-10 12:07",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"12号602",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        },
+        {
+            "name":"邓七",
+            "phoneNumber":"15907441251",
+            "userType":"2",
+            "applyTime":"2014-06-10 12:07",
+            "applyType":"1",
+            "area":"浦东-张江",
+            "communityName":"汤臣豪庭2期",
+            "houseNo":"14号202",
+            "huxing":"3房2厅2卫",
+            "price":"8900"
+        }
+    ]
+}

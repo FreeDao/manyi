@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+body,html{
+	margin:0px;
+	padding:0px;
+}
+.box{
+	font-size:12px;
+	margin:5px 10px;
+}
+
+.box .hint{
+	border:1px #FF9900 solid;
+	background-color:#FFFFCC;
+	padding:0px;
+	
+	line-height: 25px;
+}
+
+.box .hint .icon{
+	margin-left:5px;
+	position:relative;
+	top:3px;
+	+top:1px;
+}
+
+.box .hint .content{
+	margin-left:5px;
+	color:#FF9900;
+	+position:relative;
+	+top:-2px;
+}
+
+.clear{
+	clear:left;
+}

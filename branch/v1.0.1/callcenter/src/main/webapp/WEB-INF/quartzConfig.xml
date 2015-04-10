@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <!-- task job classes -->
+    <bean id="rollPolingJob" class="com.manyi.fyb.callcenter.automaton.RollPolingQuartzTask"></bean>
+    
+    <bean id="rollPolingTask"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- job class -->
+        <property name="targetObject">
+            <ref bean="rollPolingJob" />
+        </property>
+        <!-- invoke method in task -->
+        <property name="targetMethod">
+            <value>start</value>
+        </property>
+    </bean>
+    <!-- roll poling trigger time -->
+    <bean id="rollPolingTriggerTime"
+        class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="rollPolingTask" />
+        </property>
+        <!-- every 6 hours expression -->
+        <property name="cronExpression">
+            <value>0 0 0 * * ?</value>
+        </property>
+    </bean>
+    <bean id="startQuertz" lazy-init="false" autowire="no"
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="rollPolingTriggerTime" />
+            </list>
+        </property>
+    </bean>
+</beans>

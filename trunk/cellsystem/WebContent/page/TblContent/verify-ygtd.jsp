@@ -1,0 +1,236 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+     <%@ taglib uri="/struts-tags" prefix="s"%>
+   <%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String id= request.getAttribute("id")+"";
+String categoryType=request.getAttribute("categoryType")+"";
+String menuno=request.getAttribute("menuno")+"";
+String dtype=request.getAttribute("dtype")+"";
+String listpage=request.getAttribute("listpage")+"";
+%>
+   
+<%@page import="com.pkit.util.SafeUtils"%>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>企业云平台管理系统</title>
+		<link href="<%=path%>/static/xcloud/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+		<link href="<%=path%>/static/xcloud/css/ligerui-form.css" rel="stylesheet" type="text/css" />
+		<link href="<%=path%>/static/xcloud/css/common.css" rel="stylesheet" type="text/css" />
+		<script src="<%=path%>/static/xcloud/js/jquery-1.5.2.min.js" type="text/javascript"></script>
+		<script src="<%=path%>/static/xcloud/js/ligerui.min.js" type="text/javascript"></script>
+		<script src="<%=path%>/static/xcloud/js/common.js" type="text/javascript"></script>
+		
+		
+		<script src="<%=path %>/static/xcloud/js/ckplayer/ckplayer.js" type="text/javascript"></script>
+		
+	</head>
+	<body>
+	<input type='hidden' value="<s:property value='#attr.ftpip' />" id='ftpip'/>
+		<div class="detail-middle l-form" style="margin-left: 30px; padding-bottom:100px; height:700px;">
+			<div class="l-group l-group-hasicon"><img src="<%=path%>/static/xcloud/css/img/icon/communication.gif" /><span>基本信息</span> >> <s:property value='#attr.categoryName'/> </div>
+			<table id="detail" class="detail-tableSkin detail-tableSkinA">
+				<tr>
+					<th>上传人：</th>
+					<td colspan="3" class="dphoneUsername"></td>
+				</tr>
+				<tr>
+					<th>类型：</th>
+					<td class="dtype" width="200" type='select'></td>
+					<th>用户编号</th>
+					<td class="dusercode"></td>
+				</tr>
+				<tr>
+					<th>状态：</th>
+					<td class="dstatus" type='select'></td>
+					<th>上传时间：</th>
+					<td colspan="3" class="duploadtime"></td>
+				</tr>
+				
+				<tr>
+					<th>海报地址：</th>
+					<td class="dviewnumber" colspan="3"></td>
+				</tr>
+				<!-- 
+				<tr>
+					<th>缩略图地址：</th>
+					<td colspan="3" class='dthumburl'>
+					</td>
+				</tr>
+				 -->
+				<tr id="vod">
+					<th>视频地址：</th>
+					<td colspan="3" class='dvediourl'>
+					</td>
+				</tr>
+				<tr>
+				<th>内容：</th>
+					<td class="dcontent" width="200" colspan="3"></td>
+				</tr>
+			</table>
+			<div class="l-form" style="margin: 20px 0px!important">
+			<div class="l-group l-group-hasicon"><img src="<%=path%>/static/xcloud/css/img/icon/communication.gif" /><span>内容预览</span></div>
+			</div>
+			<div id="video" style="position:relative;z-index: 0;width:600px;height:400px;float: left;margin-left:20px;"><div id="a1"></div></div>
+			<!--
+			上面一行是播放器所在的容器名称，如果只调用flash播放器，可以只用<div id="a1"></div>
+			-->
+			<div id='contentshow'></div>
+			
+			<br/>
+			<br/>
+			<br/>
+			
+			</div>
+		
+		<script type="text/javascript">
+			var crForm = {
+				main : "#detail",
+				init : function() {
+					var detail = $(this.main);
+					this.loadDetail(detail);
+					this.setFormDefaultBtn(this.cancel,this.verify);
+				},
+				loadDetail : function(d) {
+					var self = this;
+					LG.loadDetail(d, {url : "loadView.do?id=<%=id%>&dtype=<%=dtype%>"}, self.callback);
+				},
+				setFormDefaultBtn : function(cancleCallback,verifyCallback){
+					if ($.metadata){
+			    		$.metadata.setType("attr", "validate");
+			    	}
+			    	// 表单底部按钮
+			    	var buttons = [];
+			    	if (cancleCallback) {
+			    		buttons.push({ text: '取消',className:"cancle", onclick: cancleCallback });
+			    	}
+			    	if (verifyCallback) {
+			    		buttons.push({ text: '审核通过', onclick: verifyCallback });
+			    	}
+			    	LG.addFormButtons(buttons);	
+				},
+				cancel : function(item) {
+					var win = parent || window;
+	            	win.LG.closeCurrentTab(null);
+				},
+				verify:function(item){
+					var _t= (new Date())+"";
+					$.ajax({
+						async:false,
+						data:{'id':<%=id%>, 'dtype':'<%=dtype%>'},
+						url:"<%=path%>/TblContent/verifyContent.do?_t="+_t,
+						dataType:"json",
+						success:function(data){
+							if(!data.iserror){
+								win.LG.showSuccess('内容审核成功',null,900);
+							}else{
+								win.LG.showError(data.message);
+							}
+						},
+						error:function(data){
+								win.LG.showError(data.message);
+						}
+					});
+					var win = parent || window;
+					win.categoryType=<%=categoryType%>;
+					win.dtype=<%=dtype%>;
+					win.listpage ='<%=listpage%>'; 
+					//alert("verify:"+win.listpage);
+					win.LG.closeCurrentTab(null);
+		            win.loadlist();
+                  //win.LG.closeAndReloadParent(null, '<%=menuno%>');
+				},
+				callback : function(data) {
+					data = data|| {};
+					var loadDt=data;
+					selectdata=[{"data":[{'id':1,'text':'图文'},{'id':2,'text':'视频'},{'id':3,'text':'文字'}],id:"dtype"}
+									 ,{data:[{text:'未审核',id:1},{text:'待上线',id:5},{text:'已上线',id:10},{text:'已下线',id:15}],id:'dstatus'}
+									];
+					for ( var p in data) {
+						var ele = $("[class=" + p + "]", detail);
+						if (ele.length > 0) {
+							if(ele.attr('type')){
+								for(var i = 0 ; i<selectdata.length ; i++){
+									if(selectdata[i].id == p){
+										LG.viewSelect(selectdata[i],ele,data,p);
+										break;
+									}
+								}
+							}else{
+								LG.viewSelect(null,ele,data,p);
+							}
+						}
+					}
+					
+					if(loadDt.dtype==1){
+						//图文
+						$("#video").remove();
+						$("#vod").remove();
+						var tmp =loadDt.durl;
+						tmp =tmp.split(";")[0];
+						var vodurl ="http://"+$("#ftpip").val()+"/"+tmp;
+						var str="<div style='font-size: 16px; font-weight: bold;'>标题:手机用户</div><hr/>";
+						str+="<div style='margin-top:15px;'>";
+						if(loadDt.dplacardurl != null && loadDt.dplacardurl != ''){
+							str+="<img src='"+vodurl+"' />";
+						}
+						str+="</div><div>"+loadDt.dhtmlcontent+"</div>";
+						str+="<div>"+loadDt.dcontent+"</div>";
+						$("#contentshow").append($(str));
+					}else if(loadDt.dtype==2){
+						//视频
+						var vodurl ="http://"+$("#ftpip").val()+"/"+loadDt.dvediourl; 
+						var flashvars={
+							f:vodurl,//视频地址
+							a:'',//调用时的参数，只有当s>0的时候有效
+							s:'0',//调用方式，0=普通方法（f=视频地址），1=网址形式,2=xml形式，3=swf形式(s>0时f=网址，配合a来完成对地址的组装)
+							c:'0',//是否读取文本配置,0不是，1是
+							x:'',//调用xml风格路径，为空的话将使用ckplayer.js的配置
+							i:'',//初始图片地址
+							d:'',//暂停时播放的广告，swf/图片,多个用竖线隔开，图片要加链接地址，没有的时候留空就行
+							u:'',//暂停时如果是图片的话，加个链接地址
+							r:'',//前置广告的链接地址，多个用竖线隔开，没有的留空
+							e:'3',//视频结束后的动作，0是调用js函数，1是循环播放，2是暂停播放并且不调用广告，3是调用视频推荐列表的插件，4是清除视频流并调用js功能和1差不多，5是暂停播放并且调用暂停广告
+							v:'80',//默认音量，0-100之间
+							p:'1',//视频默认0是暂停，1是播放
+							h:'0',//播放http视频流时采用何种拖动方法，=0不使用任意拖动，=1是使用按关键帧，=2是按时间点，=3是自动判断按什么(如果视频格式是.mp4就按关键帧，.flv就按关键时间)，=4也是自动判断(只要包含字符mp4就按mp4来，只要包含字符flv就按flv来)
+							q:'',//视频流拖动时参考函数，默认是start
+							m:'1',//默认是否采用点击播放按钮后再加载视频，0不是，1是,设置成1时不要有前置广告
+							o:'',//当m=1时，可以设置视频的时间，单位，秒
+							w:'',//当m=1时，可以设置视频的总字节数
+							g:'3',//视频直接g秒开始播放
+							j:'',//视频提前j秒结束
+							//k:'30|60',//提示点时间，如 30|60鼠标经过进度栏30秒，60秒会提示n指定的相应的文字
+							//n:'这是提示点的功能，如果不需要删除n的值|提示点测试60秒',//提示点文字，跟k配合使用，如 提示点1|提示点2
+							//调用播放器的全部参数列表结束
+							//以下为自定义的播放器参数用来在插件里引用的
+							my_url:encodeURIComponent(window.location.href)//本页面地址
+							//调用自定义播放器参数结束
+							};
+						
+						var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'Transparent'};//这里定义播放器的其它参数如背景色（跟flashvars中的b不同），是否支持全屏，是否支持交互
+						var attributes={id:'ckplayer_a1',name:'ckplayer_a1',menu:'false'};
+						//下面一行是调用播放器了，括号里的参数含义：（播放器文件，要显示在的div容器，宽，高，需要flash的版本，当用户没有该版本的提示，加载初始化参数，加载设置参数如背景，加载attributes参数，主要用来设置播放器的id）
+						swfobject.embedSWF('<%=path%>/static/xcloud/js/ckplayer/ckplayer.swf', 'a1', '600', '400', '10.0.0','<%=path%>/static/xcloud/js/ckplayer/expressInstall.swf', flashvars, params, attributes);
+						/*播放器地址，容器id，宽，高，需要flash插件的版本，flashvars,params,attributes
+						  如果你因为目前的swfobject和你项目中的存在冲突，不想用swfobject.embedSWF调用，也可以用如下代码进行调用
+						  CKobject.embedSWF('ckplayer/ckplayer.swf','a1','ckplayer_a1','600','400',flashvars,params);
+						  CKobject.embedSWF(播放器路径,容器id,播放器id/name,播放器宽,播放器高,flashvars的值,其它定义也可省略);
+						  此时可以删除ckplayer.js中的最后一行，交互的部分也要改成CKobject.getObjectById('ckplayer_a1')
+						*/
+						//调用ckplayer的flash播放器结束
+						
+					}
+					
+					
+				}
+			}
+			crForm.init();
+			
+		</script>
+	</body>
+</html>

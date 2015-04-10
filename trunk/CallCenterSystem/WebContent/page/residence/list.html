@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html style="width:99%; height: 94%;">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate" />
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" />
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/themes/icon.css" />
+<script type="text/javascript" src="/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/scripts/common.js"></script>
+
+<style type="text/css">
+	.select_a {
+		font-weight: bold;
+		color : red;
+	}
+	.none_a{
+		border : none;
+		color : blue;
+	}
+	#search a{
+		text-decoration: none;
+	}
+	.search{
+		margin: 1px 1px 8px 1px;
+	}
+</style>	
+
+</head>
+<body style="width:100%; height: 100%;">
+
+
+	<!-- 搜索 -->
+	<div id='search'>
+	
+	<div class='search area'>区域： </div>
+	 
+	 <div class='search town' style="display: none;">片区： </div>
+	
+	 <div class='search status'>状态: </div>
+	 
+	  
+	</div>
+	
+	<hr/>
+	
+	<!-- 列表 -->
+	<table id ='mainfrom' style="height:100%;"></table>
+	
+	<!-- 查看信息 -->
+	<div id='view' style="width:400px;height:380px;padding:10px 20px;display: none;">
+		小区名称: <span  id ='estateTitle' class='view'  ></span><br/>
+		楼座编号: <span  id ='building' class='view'  ></span><br/>
+		楼层: <span  id ='floor' class='view'  ></span><br/>
+		房号: <span  id ='room' class='view'  ></span><br/>
+		总高层: <span  id ='layers' class='view'  ></span><br/>
+		房屋类型: <span  id ='typeTitle' class='view'  ></span><br/>
+		朝向: <span  id ='directionTitle' class='view'  ></span><br/>
+		产权人: <span  id ='mainOwnerTitle' class='view'  ></span><br/>
+		建筑面积: <span  id ='coveredArea' class='view'  ></span><br/>
+		内空面积: <span  id ='spaceArea' class='view'  ></span><br/>
+		产权: <span  id ='rightTitle' class='view'  ></span><br/>
+		 类   型: <span  id ='typeTitle' class='view'  ></span><br/>
+		状 态: <span  id ='statusTitle' class='view'  ></span><br/>
+	</div>
+	
+	<!-- 新增，修改 -->
+	<div id='main_div' style="width:400px;height:380px;padding:10px 20px;display: none;">
+	  <form  method="post" >
+		小区名称: <input  name ='estateTitle' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		楼座编号: <input  name ='building' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		楼       层: <input  name ='floor' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		房      号: <input  name ='room' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		总 高 层: <input  name ='layers' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		房屋类型: <input  name ='typeTitle' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		朝       向: <input  name ='directionTitle' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		产 权 人: <input  name ='mainOwnerTitle' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		建筑面积: <input  name ='coveredArea' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		内空面积: <input  name ='spaceArea' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		 产     权: <input  name ='rightTitle' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		 类   型: <input  name ='typeTitle' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+		 状    态: <input  name ='statusTitle' class='easyui-validatebox validatebox-text validatebox-invalid'  data-options='required:true'/><br/>
+	  </form>
+    </div>
+    
+<script type="text/javascript">
+
+//alert(window.location.search);  
+
+//解析 其他 页面传递过来的参数
+function parsToJson(){
+	var tmp = window.location.search;
+	tmp = tmp.substr(1,tmp.length);
+	return tmp;
+
+}
+
+var pars= parsToJson();
+	
+var area_id='';
+var area_type='';
+var house_status_id='';
+
+
+
+function reload_grid(){
+	var pars='{';
+	if('' != area_id){
+		pars += "'residence.areaId':'"+area_id+"' ,'residence.areaType' : '"+area_type+"' ,";
+	}
+	if('' != house_status_id){
+		pars +="'residence.statusId' : '"+house_status_id+"' ,";
+	}
+	if(pars.length >1){
+		pars = pars.substr(0,pars.length-1);
+	}
+	pars +='}';
+	pars = eval("("+pars+")");
+	data_from.datagrid("reload" , pars);
+}
+
+/*筛选 房屋的 区域信息
+ * txt ： 筛选关键字
+   id : 标签id
+ */
+function houseAreaChange(txt,id,type){
+	  
+	   area_id = id;
+	   area_type = type;
+	   
+	   if(type.indexOf('city') >=0){
+		   //点击 城市 (例如: 十堰/普陀/长宁)
+		    $(".area").find("a.select_a").attr("class","none_a");
+	   		$("#area_"+id).attr("class","select_a");
+		   if(id !=''){
+			   //不是全部, 加载 区域下面的 片区
+			   var data = loadlist(type,id);
+			   var shList = data.rows;
+				var str ="片区: ";
+				str+="<a href ='javascript:void(0);' class='select_a' id='town_' onclick=\"houseAreaChange('','','area_town')\">全部</a>";
+				for(var i=0; i< shList.length ; i++){
+					var sh = shList[i];
+					str+=" <a href ='javascript:void(0);' id='town_"+(sh.areaId)+"' onclick=\"houseAreaChange('"+sh.name+"',"+sh.areaId+",'area_town')\">"+sh.name+"</a>";
+				}
+				$(".town").html(str);
+				$(".town").show();
+				
+				 $("html").css("height","90%");
+		   }else{
+			   //全部
+			   $(".town").html("");
+			   $(".town").hide();
+			   $("html").css("height","94%");
+		   }
+		   
+	   }else  if(type.indexOf('town') >=0){
+		   //片区
+		   $(".town").find("a.select_a").attr("class","none_a");
+	   		$("#town_"+id).attr("class","select_a");
+	   }
+	   //重新加载 datagrid
+	   reload_grid();
+}
+
+/*筛选 房屋的  状态
+id : 标签id
+*/
+
+function houseStatusChange(id){
+   $(".status").find("a.select_a").attr("class","none_a");
+   $("#status_"+id).attr("class","select_a");
+   house_status_id = id;
+   
+   //重新加载 datagrid
+   reload_grid();
+} 
+
+
+var data_from  = $('#mainfrom').datagrid({
+	       url:'/residence/list3.rest?'+pars, 
+	       //fitColumns : true, //True 就会自动扩大或缩小列的尺寸以适应表格的宽度并且防止水平滚动
+	       striped : true, //True 就把行条纹化
+	       pagination : true ,//分页
+	       rownumbers : true, //显示行号
+	       pageSize : 10, pageNumber :1,
+	       pageList :[10,30,50,100],//列表分页
+	       sortName : 'hid', sortOrder : 'desc',
+	       loadMsg : '数据正在努力加载中...',
+	       selectOnCheck: true, //点击行的时候也触发 同时 触发 点击checkbox
+	       checkOnSelect: true, //点击 checkbox 同时触发 点击 行
+	       columns:[[
+	                {field:'hid' , checkbox:true }//显示一个checkbox
+	 	            ,{field:'estateTitle',title:'小区名称',align:'center',resizable:true,hidden:false,sortable:true} 
+	 	            ,{field:'building',title:'楼座编号',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'floor',title:'楼层',align:'center',resizable:true,hidden:false,sortable:true,
+	 	            	//格式化数据
+	 	              formatter:function(value,row,index){
+	 	            	  //alert(value+row.estateTitle+index);
+	 	            	  return value+'层';
+	 	              } ,
+	 	              //表格的样式
+	 	              styler :function(value,row,index){
+	 	            	  return 'color:red;';
+	 	              }
+	 	             }
+	 	            ,{field:'room',title:'房号',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'layers',title:'总高层',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'areaTitle',title:'地址区域',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'directionTitle',title:'朝向',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'mainOwnerTitle',title:'产权人',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'coveredArea',title:'建筑面积',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'spaceArea',title:'内空面积',align:'center',resizable:true,hidden:false,sortable:true}
+	 	            ,{field:'rightTitle',title:'产权',align:'center',resizable:true,hidden:false,sortable:true}
+	 	           ,{field:'typeTitle',title:'类型',align:'center',resizable:true,hidden:false,sortable:true}
+	 	           ,{field:'statusTitle',title:'状态',align:'center',resizable:true,hidden:false,sortable:true}
+
+	 	        ]],
+	       toolbar:[{
+		    	   		text:'添加',
+		    	        iconCls:'icon-add',   
+		    	        handler:function(){
+		    	        	item_btn("add");
+		    	        }
+	    	       },
+	    	       {
+		    	   		text:'编辑',
+		    	        iconCls:'icon-edit',   
+		    	        handler:function(){
+		    	        	item_btn("edit");
+		    	        }  
+		    	   }] ,
+	        onDblClickRow :function(rowIndex,rowData){
+	        	view_btn(rowData);
+	        },
+	        
+	        onLoadSuccess : function(data){
+	        	$(".datagrid-view").css("height","88%");
+	        }
+				
+	        
+	 });  
+	 
+	
+	 /*
+	 查看
+	 */
+	function view_btn(row){
+		 
+		 //
+		 window.parent.showcontent("/page/residence/detail.html?id="+row.hid);
+		 return;
+	  	$("#view").show();
+	  	$("#view").find(".view").each(function(p){
+    		var self =  $(this);
+    		self.html(row[self.attr("id")]);
+    	});
+    	$('#view').dialog({   
+    	     modal:true  ,
+    	     resizable :true,
+    	     collapsible : true,
+    	     title : '查看',
+    	     buttons:[
+				{
+				    text:'好',
+				    iconCls:'icon-ok',
+				    handler:function(){
+				        $("#view").dialog("close");
+				    }
+				}
+    	        ]
+    	  });
+	 }
+	 
+	/*
+	1，新增
+	2，修改
+	*/
+	function item_btn(type){
+		if(type == 'edit'){
+	    	var rows = $('#mainfrom').datagrid('getSelections');//得到选中的行
+	    	if(rows.length > 1){  $.messager.alert('温馨提示','不能选择多行进行编辑！','info'); return false;}
+	    	if(rows.length <= 0){ $.messager.alert('温馨提示','请选择数据！','info'); return false;}
+	    	$("#main_div").find("input").each(function(p){
+	    		var self =  $(this);
+	    		self.val(rows[0][self.attr("name")]);
+	    	});
+	    	$("#main_div form").attr("action","/ur/update");
+		}else if(type == 'add'){
+			//新增
+			$("#main_div").find("input").val("");
+			$("#main_div form").attr("action","save.do");
+		}
+		
+    	$("#main_div").show();
+    	$("#main_div").dialog({  
+   	     modal:true  ,
+   	     resizable :true,
+   	     collapsible : true,
+   	     title : type == 'add' ? '新增':'修改',
+   	     buttons:[
+			{
+			    text:'保存',
+			    iconCls:'icon-ok',
+			    handler:function(){
+			    	
+			    	//验证 ， 提交 表单
+			    	$("#main_div form").submit();
+			        $("#main_div").dialog("close");
+			    }
+			 },
+			 {
+			    text:'取消',
+			    iconCls:'icon-cancel',
+			    handler:function(){
+			        $("#main_div").dialog("close");
+				}
+			 }
+   	        ]
+   	  });
+	}
+	
+	 
+
+	$(document).ready(function(){
+		
+		//alert($("body").css("width")+','+$("body").css("height"));
+		$("#mainfrom").css("width",$("body").css("width"));
+		$("#mainfrom").css("height",$("body").css("height"));
+		$(".datagrid").css("height","95%").find(".panel-body-noheader").css("height","98%");
+		
+		//加载数据字典
+		//上海地区信息
+		
+		var data = loadlist("shanghai");
+		var shList = data.rows;
+		var str ="区域: ";
+		str+="<a href ='javascript:void(0);' class='select_a' id='area_' onclick=\"houseAreaChange('','','area_city')\">全部</a>";
+		for(var i=0; i< shList.length ; i++){
+			var sh = shList[i];
+			str+=" <a href ='javascript:void(0);' id='area_"+(sh.areaId)+"' onclick=\"houseAreaChange('"+sh.name+"','"+sh.areaId+"','area_city')\">"+sh.name+"</a>";
+		}
+		$(".area").html(str);
+		
+		// 房屋状态
+		data = loadlist("hsList");
+		var hsList = data.rows;
+		str ="房屋状态: ";
+		str+="<a href ='javascript:void(0);' class='select_a' id='status_' onclick=\"houseStatusChange('')\">全部</a> ";
+		for(var i=0; i< hsList.length ; i++){
+			var hs = hsList[i];
+			str+=" <a href ='javascript:void(0);' id='status_"+hs.hsid+"' onclick=\"houseStatusChange('"+hs.hsid+"')\">"+hs.type+"</a> ";
+		}
+		$(".status").html(str);
+		
+
+		
+	});
+
+	
+
+	$(window).resize(function(){  
+	    var width = $(window).width()-30;  
+	    var height = $(window).height()-80;  
+	    $('#mainfrom').datagrid('resize',{  
+	        width:width,  
+	        height:height  
+	    });  
+	});  
+	
+	
+</script>
+	
+	<div id='msg'></div>
+	</body>
+</html>

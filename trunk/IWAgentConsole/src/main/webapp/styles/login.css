@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+
+html,body
+{
+	padding:0px;
+	margin:0px;
+	height:100%;
+}
+html body
+{
+	/**background:url(../pics/login/background.png) center center no-repeat #5abff8;	*/
+}
+
+.imgbg{
+	height:100%;
+	width:100%;
+	position:absolute;
+	z-index:-999;
+}
+
+#loginbox
+{
+	background:url(../pics/login/loginBox.png) center center no-repeat;
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:531px;
+	height:322px;
+	margin:-175px 0 0 -235px;
+	
+}
+
+
+#loginbox #content{
+	padding:100px 0px 0px 180px;
+	position:relative;
+	z_index:-997;
+}
+
+#loginbox .textfield{
+	width:200px;
+	height:33px;
+	background:url(../pics/login/textfield.png) center center no-repeat;
+	border:0px;
+}
+
+#loginbox #loginButton
+{
+	width:100px;
+	height:30px;
+	background:url(../pics/login/loginBtn.png);
+	float:right;
+	border:0px;
+	cursor:pointer;
+}
